@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>KickLite</title>
+<meta name="theme-color" content="#000000">
+<link rel="manifest" href="manifest.json">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="KickLite">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="top">
+  <div class="brand"><span class="kl">KickLite</span><span class="by">By Suz</span></div>
+  <h1 id="title">Más vistos</h1>
+  <div id="chips" class="chips">
+    <button data-lang="es" class="on">Español</button><button data-lang="en">English</button><button data-lang="pt">Português</button>
+  </div>
+</header>
+<div id="banner" class="banner" hidden></div>
+<main>
+  <form id="searchForm" class="search" hidden>
+    <input id="q" type="search" placeholder="Nombre del canal (ej: xqc)" autocapitalize="none" autocomplete="off">
+    <button type="submit">Buscar</button>
+  </form>
+  <ul id="list" class="grid"></ul>
+  <div id="empty" class="empty" hidden><p></p><button id="reload">Reintentar</button></div>
+</main>
+
+<nav class="tabs">
+  <button data-tab="live" class="on"><svg viewBox="0 0 24 24"><path d="M12 3c1 4 5 5 5 10a5 5 0 0 1-10 0c0-2 1-3 2-4 0 2 1 3 2 3 0-3-1-5 1-9z"/></svg>Top</button>
+  <button data-tab="cats"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="m15.5 8.5-2 5-5 2 2-5z"/></svg>Explorar</button>
+  <button data-tab="favs"><svg viewBox="0 0 24 24"><path d="M12 20.5 4.2 13a4.8 4.8 0 0 1 6.8-6.8l1 1 1-1A4.8 4.8 0 0 1 19.8 13z"/></svg>Favoritos</button>
+  <button data-tab="multi"><svg viewBox="0 0 24 24"><rect x="4" y="4" width="7" height="7" rx="1"/><rect x="13" y="4" width="7" height="7" rx="1"/><rect x="4" y="13" width="7" height="7" rx="1"/><rect x="13" y="13" width="7" height="7" rx="1"/></svg>Multi</button>
+  <button data-tab="search"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="6"/><path d="m20 20-4.2-4.2"/></svg>Buscar</button>
+</nav>
+
+<section id="multi" class="multi" hidden>
+  <div id="mgrid" class="mgrid"></div>
+  <div id="mtabs" class="mtabs"></div>
+  <div id="mchat" class="pane chat"><ul id="mmsgs"></ul><div id="mbox"></div><button id="mjump" hidden>↓ Mensajes nuevos</button></div>
+</section>
+<div id="sheet" class="sheet" hidden>
+  <div class="sheetin">
+    <div class="sh"><b>Añadir al multistream</b><button id="sclose" aria-label="Cerrar">✕</button></div>
+    <form id="sform" class="search"><input id="sq" placeholder="Nombre del canal" autocapitalize="none" autocomplete="off"><button type="submit">Añadir</button></form>
+    <div id="slist"></div>
+  </div>
+</div>
+
+<div id="csheet" class="sheet csheet" hidden>
+  <div class="sheetin">
+    <div class="sh"><b id="ctitle">Clips</b><button id="cclose" aria-label="Cerrar">✕</button></div>
+    <div id="clist"></div>
+    <div id="cdur" class="cdur">Duración al marcar: <button data-d="15">15 s</button><button data-d="30">30 s</button><button data-d="60">60 s</button></div>
+    <div id="ced" hidden>
+      <div class="cprev" id="cprev"><video id="cvid" playsinline muted></video><canvas id="cfxv" class="cfxv" hidden></canvas><button id="cplay" class="cplay" aria-label="Reproducir">▶</button><button id="cmute" class="cmute" aria-label="Sonido">🔇</button></div>
+      <div id="tlbar" class="tlbar"><div id="tlsel" class="tlsel"></div><div id="tlph" class="tlph"></div><div id="tlh1" class="tlh"></div><div id="tlh2" class="tlh"></div></div>
+      <div class="tlt"><span id="ctime"></span><b id="clen"></b></div>
+      <div id="cmode" class="cmode" role="group" aria-label="Modo de exportación"><button data-m="clean" class="on">Limpio</button><button data-m="edit">Editado</button></div>
+      <p id="cmhint" class="cmhint"></p>
+      <div id="cfx" class="cfx" hidden>
+        <div class="fxr"><span>Formato</span><div class="fxs" data-k="fmt"><button data-v="16:9">16:9 Horizontal</button><button data-v="9:16">9:16 Vertical</button></div></div>
+        <div class="fxr" id="cfit"><span>Encuadre</span><div class="fxs" data-k="fit"><button data-v="blur">Ajustar</button><button data-v="crop">Recortar</button></div></div>
+        <input id="ctext" class="ctext" maxlength="80" placeholder="Texto estilo meme (ej: ¡NO LO PUEDO CREER!)" autocomplete="off" autocapitalize="characters">
+        <div class="fxr"><span>Posición</span><div class="fxs" data-k="pos"><button data-v="top">Arriba</button><button data-v="mid">Centro</button><button data-v="bottom">Abajo</button></div></div>
+        <div class="fxr"><span>Estilo</span><div class="fxs" data-k="style"><button data-v="outline">Borde</button><button data-v="box">Fondo</button></div></div>
+        <div class="fxr"><span>Color</span><div class="fxs fxc" data-k="color"><button data-v="#ffffff" style="--c:#ffffff" aria-label="Blanco"></button><button data-v="#ffe600" style="--c:#ffe600" aria-label="Amarillo"></button><button data-v="#53fc18" style="--c:#53fc18" aria-label="Verde"></button><button data-v="#ff4d6a" style="--c:#ff4d6a" aria-label="Rojo"></button></div></div>
+        <div class="fxr"><span>Animación</span><div class="fxs" data-k="anim"><button data-v="pop">Pop</button><button data-v="pulse">Latido</button><button data-v="shake">Temblor</button><button data-v="none">Fija</button></div></div>
+      </div>
+      <input id="cname" class="cname" maxlength="60" placeholder="Título del clip" autocomplete="off">
+      <div class="cact"><button id="cshare">Compartir</button><button id="cdl">Descargar MP4</button><button id="cts">.ts</button><button id="cback">‹ Volver</button></div>
+    </div>
+  </div>
+</div>
+<div id="fxov" class="updm fxov" hidden role="dialog" aria-modal="true">
+  <div class="updbox">
+    <h3 id="fxt">Creando tu clip…</h3>
+    <p id="fxs">Mantén esta pantalla abierta.</p>
+    <div class="fxbar" id="fxbarw"><i id="fxbar"></i></div>
+    <div class="updact">
+      <button id="fxshare" class="go" hidden>Compartir</button>
+      <button id="fxsave" class="go" hidden>Guardar</button>
+      <button id="fxcancel" class="later">Cancelar</button>
+    </div>
+  </div>
+</div>
+<div id="toast" class="toast" hidden></div>
+
+<section id="player" class="player" hidden>
+  <div class="stage" id="stage">
+    <video id="video" playsinline autoplay></video>
+    <div class="ov" id="ov">
+      <div class="ovt">
+        <button id="close" aria-label="Volver">‹</button>
+        <span class="badge">EN VIVO</span><span id="pview" class="pv"></span>
+        <i class="sp"></i><button id="clip" aria-label="Crear clip">✂</button><button id="clips" aria-label="Mis clips">🎞</button><button id="pip" aria-label="Mini reproductor">⧉</button>
+      </div>
+      <button id="pp" class="big" aria-label="Pausa">❚❚</button>
+      <button id="rw" class="sk l" aria-label="Retroceder 10 segundos">↺10</button><button id="ff" class="sk r" aria-label="Adelantar 10 segundos">10↻</button>
+      <div class="ovw"><div class="seekrow"><span id="tl" class="tl">EN VIVO</span><input id="seek" type="range" min="0" max="1" step="0.1" value="1" aria-label="Línea de tiempo"></div><div class="ovb">
+        <button id="mute" aria-label="Silencio">🔊</button>
+        <input id="vol" type="range" min="0" max="1" step="0.05" value="1" aria-label="Volumen">
+        <button id="golive" class="gl">● Directo</button>
+        <select id="qual" aria-label="Calidad"><option value="-1">Auto</option></select>
+        <button id="fs" aria-label="Pantalla completa">⛶</button>
+      </div></div>
+    </div>
+    <button id="retry" class="retry" hidden aria-label="Reintentar">↻</button>
+    <pre id="dbg" class="dbg" hidden></pre>
+  </div>
+  <div class="pinfo">
+    <div class="av" id="pav"></div>
+    <div class="info"><div class="t" id="ptitle"></div><div class="m" id="pmeta"></div></div>
+    <button id="pfav" class="fav" aria-label="Favorito">♡</button>
+  </div>
+  <div class="seg"><button data-pane="chat" class="on">Chat</button><button data-pane="more">Más canales</button></div>
+  <div id="chat" class="pane chat"><ul id="msgs"></ul><div id="chatbox"></div><button id="jump" hidden>↓ Mensajes nuevos</button></div>
+  <div id="morepane" class="pane" hidden><ul id="more" class="grid"></ul></div>
+  <div id="cbar" class="cbar" hidden>
+    <button id="login" class="loginb" hidden>Iniciar sesión con Kick para chatear</button>
+    <div id="emop" class="emop" hidden></div>
+    <form id="cform" hidden><input id="cin" maxlength="500" placeholder="Escribe un mensaje…" autocomplete="off"><button type="button" id="cemo" aria-label="Emotes">😀</button><button type="submit" aria-label="Enviar">➤</button><button type="button" id="logout" aria-label="Cerrar sesión">⎋</button></form>
+  </div>
+</section>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/hls.js/1.5.13/hls.min.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

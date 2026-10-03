@@ -1,0 +1,49 @@
+{
+  "entries": [
+    {
+      "v": 25,
+      "title": "Versión 25 · Nueva sección Explorar",
+      "items": [
+        "Nuevo: pestaña Explorar con las categorías que están en directo ahora, ordenadas por espectadores.",
+        "Toca una categoría para ver sus directos y usa el filtro para encontrar la que buscas.",
+        "Funciona igual en teléfono y en computadora."
+      ]
+    },
+    {
+      "v": 24,
+      "title": "Versión 24 · Mejoras en computadora",
+      "items": [
+        "En computadora ahora se ven más canales en Top y la pantalla se aprovecha mejor, con menos espacios vacíos.",
+        "Hemos arreglado el multistream en computadora: los streams pequeños ya no tapan al grande.",
+        "En el reproductor de computadora aparecen más canales en directo debajo del vídeo.",
+        "En el teléfono todo se ve exactamente igual que antes."
+      ]
+    },
+    {
+      "v": 23,
+      "title": "Versión 23 · Ahora también en computadora",
+      "items": [
+        "Nuevo: la app se adapta a pantallas de computadora, con menú lateral, rejilla más ancha y el chat al lado del vídeo.",
+        "En el teléfono todo se ve exactamente igual que antes."
+      ]
+    },
+    {
+      "v": 22,
+      "title": "Versión 22 · Clips con modo Editado",
+      "items": [
+        "Nuevo: al abrir un clip puedes elegir entre Modo Limpio (el clip tal cual, horizontal y sin cambios) y Modo Editado.",
+        "Modo Editado: elige formato horizontal 16:9 o vertical 9:16 para TikTok / Shorts.",
+        "Modo Editado: escribe un texto estilo meme y míralo en tiempo real: letra grande con borde o fondo semitransparente, arriba, en el centro o abajo, con animación.",
+        "Las novedades ahora también aparecen justo después de refrescar, una sola vez."
+      ]
+    },
+    {
+      "v": 21,
+      "title": "Versión 21",
+      "items": [
+        "Hemos arreglado los clips en MP4: ahora se ven con imagen al descargarlos o compartirlos (antes podían salir en negro y solo con sonido).",
+        "El aviso de actualización ahora te cuenta qué ha cambiado antes de refrescar."
+      ]
+    }
+  ]
+}
